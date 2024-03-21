@@ -108,21 +108,25 @@ public class HeaderToField<R extends ConnectRecord<R>> extends BaseKeyValueTrans
     }
 
     Map<String, Object> headers = new HashMap<>();
-    if (this.config.mappings.isEmpty()) {
-      for (Header header: record.headers()) {
-        headers.put(header.key(), header.value());
-        break;
-      }
-    } else {
-      this.config.mappings.forEach(mapping -> {
-        for (Header header: record.headers()) {
-          if (header.key().equals(mapping.header)) {
-            headers.put(mapping.field, header.value());
-            break;
-          }
-        }
-      });
+    for (Header header: record.headers()) {
+      headers.put(header.key(), header.value());
+      break;
     }
+    // if (this.config.mappings.isEmpty()) {
+    //   for (Header header: record.headers()) {
+    //     headers.put(header.key(), header.value());
+    //     break;
+    //   }
+    // } else {
+    //   this.config.mappings.forEach(mapping -> {
+    //     for (Header header: record.headers()) {
+    //       if (header.key().equals(mapping.header)) {
+    //         headers.put(mapping.field, header.value());
+    //         break;
+    //       }
+    //     }
+    //   });
+    // }
 
     input.put("_headers", headers);
     return new SchemaAndValue(null, input);
