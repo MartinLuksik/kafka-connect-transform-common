@@ -110,7 +110,6 @@ public class HeaderToField<R extends ConnectRecord<R>> extends BaseKeyValueTrans
     Map<String, Object> headers = new HashMap<>();
     for (Header header: record.headers()) {
       headers.put(header.key(), header.value());
-      break;
     }
     // if (this.config.mappings.isEmpty()) {
     //   for (Header header: record.headers()) {
